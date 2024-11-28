@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.views.generic.edit import CreateView
 
-# Create your views here.
+from .models import Resource
+
+class ResourceCreateView(CreateView):
+    model = Resource
+    template_name = "app/base.html"
+    fields = [
+        "code_repository",
+    ]
+

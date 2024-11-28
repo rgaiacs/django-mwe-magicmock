@@ -1,5 +1,6 @@
 import logging
 
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from .aid import GitHosting
@@ -21,16 +22,13 @@ class Resource(models.Model):
     def clean(self):
         """
         NOT invoked when you call your model’s save() method.
-        
+
         Check if the resource really exists.
         """
         logger.error("Cleaning data ...")
-        data = self.cleaned_data
 
-        if len(data["code_repository"]) == 0:
+        if len(self.code_repository) == 0:
             raise ValidationError("Code repository is empty.")
 
         git_host = GitHosting()
-        data["version"] = git_host.get_version()
-
-        return data
+        self.version = git_host.get_version()
