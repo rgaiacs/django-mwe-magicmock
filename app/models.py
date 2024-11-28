@@ -1,6 +1,10 @@
+import logging
+
 from django.db import models
 
 from .aid import GitHosting
+
+logger = logging.getLogger(__name__)
 
 class Resource(models.Model):
     code_repository = models.URLField(
@@ -18,8 +22,13 @@ class Resource(models.Model):
         """
         Check if the resource really exists.
         """
-        if len(self.code_repository) == 0:
+        logger.error("Cleaning data ...")
+        data = self.cleaned_data
+
+        if len(data["code_repository"]) == 0:
             raise ValidationError("Code repository is empty.")
 
         git_host = GitHosting()
-        self.version = git_host.get_version()
+        data["version"] = git_host.get_version()
+
+        return data
