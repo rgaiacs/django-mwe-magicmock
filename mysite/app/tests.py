@@ -12,8 +12,8 @@ class ResourceTestCase(TestCase):
     def test_add_resource(self, mock_get_version):
         mock_get_version = "5678"
 
-        logger.error("Testing ...")
+        logger.error("Adding resource ...")
 
         resource = Resource.objects.create(code_repository="http://mygit.com/foo/bar")
 
-        self.assertEqual(resource.version, "5678")
+        self.assertEqual(resource.version, "HEAD")

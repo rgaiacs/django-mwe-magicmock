@@ -20,6 +20,8 @@ class Resource(models.Model):
 
     def clean(self):
         """
+        NOT invoked when you call your model’s save() method.
+        
         Check if the resource really exists.
         """
         logger.error("Cleaning data ...")
