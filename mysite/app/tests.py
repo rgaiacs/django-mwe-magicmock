@@ -22,7 +22,7 @@ class ResourceTestCase(TestCase):
 @patch("app.models.GitHosting.get_version")
 class ResourceViewTestCase(TestCase):
     def test_add_resource(self, mock_get_version):
-        mock_get_version = "5678"
+        mock_get_version.return_value = "5678"
 
         logger.error("Submitting form ...")
 
